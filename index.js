@@ -18,6 +18,8 @@ app.get("*", (req, res) => {
 });
 
 
-
+//Routes
+app.use("/auth", require("./routes/auth/index"));
+app.use("/messages", require("./routes/messages/index"));
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
