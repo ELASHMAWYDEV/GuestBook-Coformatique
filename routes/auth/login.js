@@ -83,7 +83,6 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (e) {
-    console.log(e);
     return res.json({
       success: false,
       errors: [`Error occured: ${e.message}`],
