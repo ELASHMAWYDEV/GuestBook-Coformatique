@@ -2,5 +2,41 @@
 
 
 .home-header {
+  padding-top: 20px;
+  @include flex;
+  justify-content: space-between;
+  .website-title {
+    color: $lightBlue;
+    font-size: 34px;
+    font-weight: bold;
+  }
+  .right-items {
+    @include flex;
+  }
+  .nav-links {
+    margin-right: 50px;
+    a {
+      font-weight: normal;
+      transition: 0.2s ease;
+      margin: auto 20px;
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+  .logout-btn {
+    background-color: $lightRed;
+    color: $white;
+    border-radius: 20px;
+    padding: 5px 25px;
+    transition: 0.2s ease;
+    &:hover {
+      background-color: $darkRed;
+    }
+    &:active {
+      transition: none;
+      transform: scale(0.95);
+    }
+  }
   
 }
