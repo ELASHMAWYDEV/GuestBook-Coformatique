@@ -14,9 +14,10 @@ class Login extends Component {
             <input placeholder="Username or email" type="text"/>
             <input placeholder="Password" type="text" />
           </div>
-          <button className="login-btn">Login</button>
+          <button className="login-btn">login</button>
           <p className="after-box-notice">if you don't have an account, register <Link to="/register">here</Link></p>
           <p className="after-box-notice">lost your password ? click <Link to="/reset">here</Link> to reset</p>
+          <Link to="/" className="go-home-btn">Go to home</Link>
         </div>
       </div>
     );

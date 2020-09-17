@@ -18,6 +18,7 @@ class Register extends Component {
           </div>
           <button className="register-btn">register</button>
           <p className="after-box-notice">if you already have an account, login <Link to="/login">here</Link></p>
+          <Link to="/" className="go-home-btn">Go to home</Link>
         </div>
       </div>
     );

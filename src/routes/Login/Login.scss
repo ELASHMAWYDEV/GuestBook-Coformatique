@@ -32,4 +32,8 @@
   .after-box-notice {
     @include afterBoxNotice;
   }
+  .go-home-btn {
+    @include roundedBtn($green, $darkGreen);
+    margin-top: 40px;
+  }
 }
