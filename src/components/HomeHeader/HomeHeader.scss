@@ -25,18 +25,16 @@
     }
   }
   .logout-btn {
-    background-color: $lightRed;
-    color: $white;
-    border-radius: 20px;
-    padding: 5px 25px;
-    transition: 0.2s ease;
-    &:hover {
-      background-color: $darkRed;
-    }
-    &:active {
-      transition: none;
-      transform: scale(0.95);
-    }
+    @include roundedBtn;
+  }
+  .login-btn {
+    @include roundedBtn($green, $darkGreen);
+    margin-left: 30px;
+    width: 110px;
+  }
+  .register-btn {
+    @include roundedBtn;
+    width: 110px;
   }
   
 }

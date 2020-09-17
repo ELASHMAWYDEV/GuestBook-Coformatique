@@ -10,6 +10,18 @@ class WriteMessage extends Component {
     isLoggedIn: true,
   };
 
+  componentDidMount = () => {
+    document.addEventListener("keydown", this.pressESC);
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener("keydown", this.pressESC);
+  }
+
+  pressESC = (e) => {
+    if (e.keyCode == 27 && this.state.boxVisible) this.toggleBox();
+  }
+
   toggleBox = () => {
     this.setState({ boxVisible: !this.state.boxVisible });
   };

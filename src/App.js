@@ -8,7 +8,7 @@ import {
 import PrivateRoute from "./routes/PrivateRoute";
 
 //Routes
-import { Home } from "./routes/index";
+import { Home, Login, Register } from "./routes/index";
 
 class App extends Component {
 
@@ -17,6 +17,8 @@ class App extends Component {
       <Router> 
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
         </Switch>
       </Router>
     );

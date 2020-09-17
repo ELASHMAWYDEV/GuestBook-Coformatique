@@ -1,0 +1,35 @@
+@import "../../assets/sass/globals";
+
+
+
+.register-container {
+  background-color: $black;
+  @include flex;
+  min-height: 100%;
+  .register-box {
+    width: 320px;
+    max-width: 95%;
+    @include flex(column);
+    color: $white;
+  }
+  .separator {
+    @include lineSeparator;
+  }
+  .inputs {
+    width: 100%;
+    @include flex(column);
+    input {
+      @include inputField;
+    }
+  }
+  .register-btn {
+    @include submitBtn;
+    width: 100%;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  .after-box-notice {
+    @include afterBoxNotice;
+  }
+}
