@@ -5,6 +5,7 @@ const db = require("../../db");
 const ObjectId = require("mongodb").ObjectID;
 const crypto = require("crypto");
 const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN;
+const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
   try {
@@ -53,7 +54,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    //send mail to the user with the reset token ("I used test gmail account for this purpose, you are free to steel it :D")
+    //send mail to the user with the reset token
     const transporter = nodemailer.createTransport({
       pool: true,
       host: "elashmawydev.com",
@@ -87,6 +88,79 @@ router.post("/", async (req, res) => {
       messages: ["Reset link was sent to your email"],
       info: mailResponse,
     });
+  } catch (e) {
+    return res.json({
+      success: false,
+      errors: [`Error occured: ${e.message}`],
+    });
+  }
+});
+
+/**************************************/
+
+router.post("/submit", async (req, res) => {
+  try {
+    //Initial @params
+    let user = req.body;
+    let errors = [];
+
+    //check for empty inputs
+    if (!user.password) errors.push("The password mustn't be empty");
+    if (!user.passwordConfirm)
+      errors.push("The password confirmation mustn't be empty");
+    if (!user.resetToken)
+      errors.push("You must open the reset link from your email");
+
+    //validate password
+    if (user.password && user.password.length < 6)
+      errors.push("The password must be at least 6 characters");
+    if (user.password != user.passwordConfirm)
+      errors.push("The password & password confirmation are not the same");
+
+    //if any errors occured ===> STOP & send errors
+    if (errors.length != 0) {
+      return res.json({
+        success: false,
+        errors,
+      });
+    }
+
+    //check for reset token in DB
+    let userSearch = await db
+      .collection("users")
+      .findOne({ resetToken: user.resetToken });
+
+    //if user doesn't exist in DB ===> STOP
+    if (!userSearch) {
+      return res.json({
+        success: false,
+        errors: [
+          "You have already reseted your password, if that wasn't true. open the reset link from your email again",
+        ],
+      });
+    } else {
+      //update the password in DB
+      let hashedPassword = await bcrypt.hash(user.password, 10);
+      let userUpdated = await db
+        .collection("users")
+        .findOneAndUpdate(
+          { _id: ObjectId(userSearch._id) },
+          { $unset: { resetToken: "" }, $set: { password: hashedPassword } }
+        );
+
+      //if any errors on storing token ===> STOP
+      if (!userUpdated.value) {
+        return res.json({
+          success: false,
+          errors: ["Error occured, please contact the developer"],
+        });
+      } else {
+        return res.json({
+          success: true,
+          messages: ["The password was updated successfully"],
+        });
+      }
+    }
   } catch (e) {
     return res.json({
       success: false,
