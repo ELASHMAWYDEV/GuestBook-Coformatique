@@ -63,12 +63,13 @@ router.post("/", async (req, res) => {
       username: user.username,
       email: user.email,
       password: hashedPassword,
+      createdAt: new Date().getTime()
     });
 
     if (userResult && userResult.insertedCount != 0) {
       //Create the access token, save it to DB and send it in a cookie
       const accessToken = jwt.sign(userResult.ops[0], SECRET_TOKEN);
-      const saveToken = await db.collection("users").findOneAndUpdate(
+      const storeToken = await db.collection("users").findOneAndUpdate(
         { _id: ObjectId(userResult.ops[0]._id) },
         {
           $set: {
@@ -81,7 +82,7 @@ router.post("/", async (req, res) => {
       );
 
       //In case any errors occured "which wil not :D"
-      if (!saveToken.value) {
+      if (!storeToken.value) {
         return res.json({
           success: false,
           errors: ["Error occured, please contact the developer"]
@@ -96,9 +97,13 @@ router.post("/", async (req, res) => {
         secure: process.env.NODE_ENV == "production" ? true : false,
       });
 
+      //delete password from user object
+      delete userResult.ops[0].password;
+
       return res.json({
         success: true,
-        messages: ["Your account have been successfully registered"]
+        messages: ["Your account have been successfully registered"],
+        user: userResult.ops[0]
       });
     }
   } catch (e) {
