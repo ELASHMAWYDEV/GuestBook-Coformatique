@@ -1,0 +1,8 @@
+@import "colors";
+
+@mixin flex($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+  align-items: center;
+}
