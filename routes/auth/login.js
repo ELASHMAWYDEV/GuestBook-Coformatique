@@ -14,16 +14,15 @@ router.post("/", async (req, res) => {
 
     /*-----------VALIDATION START-----------*/
     //check for empty inputs
-    if (!user.username && !user.email)
-      errors.push("The username or email mustn't be empty");
+    if (!user.user) errors.push("The username or email mustn't be empty");
     if (!user.password) errors.push("The password mustn't be empty");
 
     //check for email or username in DB
     const userSearch = await db
       .collection("users")
-      .findOne({ $or: [{ email: user.email }, { username: user.username }] });
+      .findOne({ $or: [{ email: user.user }, { username: user.user }] });
     if (!userSearch) errors.push("This email or username is not registered");
-    
+
     /*-----------VALIDATION END-----------*/
 
     //if any errors occured ===> STOP
