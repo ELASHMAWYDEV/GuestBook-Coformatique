@@ -10,6 +10,7 @@ router.use("/login", require("./login"));
 router.use("/register", require("./register"));
 router.use("/reset", require("./reset"));
 router.use("/check", require("./check"));
+router.use("/logout", require("./logout"));
 
 
 module.exports = router;
