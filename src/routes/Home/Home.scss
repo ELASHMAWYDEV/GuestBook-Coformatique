@@ -5,9 +5,6 @@
   min-height: 100%;
   padding: 0 30px;
   .messages-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 50px;
-    justify-items: center;
+    @include messagesContainer;
   }
 }
