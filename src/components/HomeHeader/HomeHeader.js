@@ -5,7 +5,7 @@ import Cookie from "js-cookie";
 
 class HomeHeader extends Component {
   state = {
-    isLoggedIn: false,
+    isLoggedIn: true,
   };
 
   componentDidMount = () => {
@@ -30,6 +30,7 @@ class HomeHeader extends Component {
           {this.state.isLoggedIn ? (
             <>
               <div className="nav-links">
+                <Link to="/">Home</Link>
                 <Link to="/ReadMessages">Read Messages</Link>
                 <Link to="/MyMessages">My Messages</Link>
               </div>
