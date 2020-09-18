@@ -73,9 +73,9 @@ router.post("/", async (req, res) => {
       html: `
       <div style="background-color: #394244;padding: 40px 10px;border-radius: 10px;over-flow: hidden;">
         <h1 style="color: #C8D6E5;margin: 0 auto 30px;font-family: 'Ubuntu';text-align: center;">Guest Book</h1>
-        <h4 style="text-align: center; flex: 1;border-radius: 15px;background-color: #ff6b6b; padding: 20px 10px;margin: 15px;font-family: 'Ubuntu'">You requested to reset your password</h4>
-        <h4 style="text-align: center;margin: 20px auto;font-family: 'Ubuntu'">To reset it</h4>
-        <h2 style="margin: 10px auto;width: max-content;font-family: 'Ubuntu'"><a href=${CLIENT_DOMAIN}/reset/${resetToken} style="color: white; background-color: #54a0ff; padding: 5px 20px;border-radius: 15px;">click here</a></h2>
+        <h4 style="text-align: center; flex: 1;border-radius: 15px;background-color: #ff6b6b; padding: 20px 10px;margin: 15px;font-family: 'Ubuntu';color: white;">You requested to reset your password</h4>
+        <h4 style="text-align: center;margin: 20px auto;font-family: 'Ubuntu';color: white;">To reset it</h4>
+        <h2 style="margin: 10px auto;width: max-content;font-family: 'Ubuntu'"><a href=${CLIENT_DOMAIN}/reset/submit/${resetToken} style="color: white; background-color: #54a0ff; padding: 5px 20px;border-radius: 15px;">click here</a></h2>
       </div>
 
       `,
