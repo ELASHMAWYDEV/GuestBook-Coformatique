@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
         maxAge: 86400 * 1000,
         httpOnly: true,
         domain: process.env.CLIENT_DOMAIN || "localhost",
-        secure: process.env.NODE_ENV == "production" ? true : false,
+        secure: process.env.CLIENT_SECURED,
       });
 
       //delete password from user object
