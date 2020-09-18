@@ -14,7 +14,7 @@ const corsConfig =
         credentials: true,
       }
     : {
-        origin: process.env.CLIENT_DOMAIN,
+        origin: process.env.CLIENT_URL,
         credentials: true,
       };
 
