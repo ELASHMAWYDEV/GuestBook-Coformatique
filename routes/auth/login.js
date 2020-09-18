@@ -67,7 +67,7 @@ router.post("/", async (req, res) => {
       //send access token in cookie
       res.cookie("@access_token", accessToken, {
         maxAge: 86400,
-        httpOnly: true,
+        // httpOnly: true,
         // domain: process.env.CLIENT_DOMAIN,
         // secure: process.env.NODE_ENV == "production" ? true : false,
       });
