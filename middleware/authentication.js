@@ -5,8 +5,7 @@ const SECRET_TOKEN = process.env.SECRET_TOKEN || "randomaccesstoken";
 
 const authentication = async (req, res, next) => {
   try {
-
-    let accessToken = req.cookies["@access_token"]
+    let accessToken = req.cookies["@access_token"];
 
     //check if access token is set in cookie
     if (!accessToken) {
@@ -15,20 +14,24 @@ const authentication = async (req, res, next) => {
       return;
     } else {
       let user = jwt.verify(accessToken, SECRET_TOKEN);
-      console.log(user);
+
+      //check if the user has the token in db
+      let userSearch = await db
+        .collection("users")
+        .findOne({ _id: ObjectId(user._id), accessToken: accessToken });
+      if (!userSearch) {
+        req.user = null;
+      } else {
+        req.user = user;
+      }
       next();
     }
-  
   } catch (e) {
     return res.json({
       success: false,
       errors: [`Error occured: ${e.message}`],
     });
   }
-  
-
-
-}
-
+};
 
 module.exports = authentication;

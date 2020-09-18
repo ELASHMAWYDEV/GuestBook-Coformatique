@@ -66,15 +66,14 @@ router.post("/", async (req, res) => {
 
       //send access token in cookie
       res.cookie("@access_token", accessToken, {
-        maxAge: 86400,
-        // httpOnly: true,
-        // domain: process.env.CLIENT_DOMAIN,
-        // secure: process.env.NODE_ENV == "production" ? true : false,
+        maxAge: 86400 * 1000,
+        httpOnly: true,
+        domain: process.env.CLIENT_DOMAIN || "localhost",
+        secure: process.env.NODE_ENV == "production" ? true : false,
       });
 
       //delete password from user object
       delete userSearch.password;
-
       return res.json({
         success: true,
         messages: ["You have successfully logged in"],

@@ -9,6 +9,7 @@ router.use(authentication);
 router.use("/login", require("./login"));
 router.use("/register", require("./register"));
 router.use("/reset", require("./reset"));
+router.use("/check", require("./check"));
 
 
 module.exports = router;
