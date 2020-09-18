@@ -5,7 +5,7 @@ import Cookie from "js-cookie";
 
 class HomeHeader extends Component {
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
   };
 
   componentDidMount = () => {
