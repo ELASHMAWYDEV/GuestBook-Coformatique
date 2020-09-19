@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
     //PROCEED if all is OK
     let storeMessage = await db
       .collection("messages")
-      .insertOne({ msg: message.msg, user_id: req.user._id });
+      .insertOne({ msg: message.msg, user_id: req.user._id, username: req.user.username });
 
     if (storeMessage && storeMessage.insertedCount != 0) {
       return res.json({
