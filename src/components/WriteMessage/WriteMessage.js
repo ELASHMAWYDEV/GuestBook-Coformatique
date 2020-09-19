@@ -30,7 +30,7 @@ class WriteMessage extends Component {
   };
 
   pressESC = (e) => {
-    if (e.keyCode == 27 && this.state.boxVisible) this.toggleBox();
+    if (e.keyCode === 27 && this.state.boxVisible) this.toggleBox();
   };
 
   toggleBox = () => {
