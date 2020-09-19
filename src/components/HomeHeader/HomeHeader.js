@@ -37,7 +37,12 @@ class HomeHeader extends Component {
               />
             )}
             <div className="home-header">
-              <div className="website-title">Guest Book</div>
+              <Link to="/" className="website-title">Guest Book</Link>
+              <div className="burger-tab">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
               <div className="right-items">
                 {isLoggedIn ? (
                   <>
