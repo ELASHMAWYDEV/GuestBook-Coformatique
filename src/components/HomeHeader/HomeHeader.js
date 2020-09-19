@@ -3,9 +3,12 @@ import "./HomeHeader.scss";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 
+//Components
+import Notifier from "../Notifier/Notifier";
+
 class HomeHeader extends Component {
   state = {
-    isLoggedIn: false,
+    success: [],
   };
 
   static contextType = AuthContext;
@@ -15,34 +18,54 @@ class HomeHeader extends Component {
     this.setState({ isLoggedIn: this.Auth.isLoggedIn });
   };
 
+  logout = async () => {
+    let response = await this.Auth.logout();
+    if (response.success) {
+      this.setState({ success: response.messages });
+    }
+  };
+
   render() {
     return (
-      <div className="home-header">
-        <div className="website-title">Guest Book</div>
-        <div className="right-items">
-          {this.state.isLoggedIn ? (
-            <>
-              <div className="nav-links">
-                <Link to="/">Home</Link>
-                <Link to="/ReadMessages">Read Messages</Link>
-                <Link to="/MyMessages">My Messages</Link>
+      <AuthContext.Consumer>
+        {({ isLoggedIn }) => (
+          <>
+            {this.state.success.length != 0 && (
+              <Notifier
+                messages={this.state.success}
+                type={true}
+                onDone={() => this.setState({ success: [] })}
+              />
+            )}
+            <div className="home-header">
+              <div className="website-title">Guest Book</div>
+              <div className="right-items">
+                {isLoggedIn ? (
+                  <>
+                    <div className="nav-links">
+                      <Link to="/">Home</Link>
+                      <Link to="/ReadMessages">Read Messages</Link>
+                      <Link to="/MyMessages">My Messages</Link>
+                    </div>
+                    <Link to="/" className="logout-btn" onClick={this.logout}>
+                      Logout
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/register" className="register-btn">
+                      Register
+                    </Link>
+                    <Link to="/login" className="login-btn">
+                      Login
+                    </Link>
+                  </>
+                )}
               </div>
-              <Link to="/" className="logout-btn" onClick={this.logout}>
-                Logout
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/register" className="register-btn">
-                Register
-              </Link>
-              <Link to="/login" className="login-btn">
-                Login
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
+            </div>
+          </>
+        )}
+      </AuthContext.Consumer>
     );
   }
 }

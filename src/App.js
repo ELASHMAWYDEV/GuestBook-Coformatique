@@ -24,18 +24,31 @@ import {
   NotFound,
 } from "./routes/index";
 
+
+//Components
+import Loading from "./components/Loading/Loading";
+
+
 class App extends Component {
   state = {
     isLoggedIn: false,
+    loading: false
   };
 
   static contextType = AuthContext;
 
-  componentDidMount = () => {
+  componentWillMount = async () => {
     this.Auth = this.context;
-    this.setState({ isLoggedIn: this.Auth.isLoggedIn });
+    let AuthCheck = await this.checkAuth()  ;
+    if (AuthCheck.success) {
+      this.setState({ isLoggedIn: true });
+    } else {
+      this.setState({ isLoggedIn: false });
+    }
   };
+
   login = async (user, password) => {
+    this.setState({ loading: true });
     let response = await axios.post(
       `${API}/auth/login`,
       {
@@ -49,16 +62,19 @@ class App extends Component {
 
     let data = await response.data;
     if (data.success) {
-      this.setState(prevState => ({ ...prevState, isLoggedIn: true }));
-      console.log(this.state.isLoggedIn, AuthContext);
+      this.setState((prevState) => ({ ...prevState, isLoggedIn: true }));
+      
+      this.setState({ loading: false });
       return data;
     } else {
       this.setState({ isLoggedIn: false });
+      this.setState({ loading: false });
       return data;
     }
   };
 
   logout = async () => {
+    this.setState({ loading: true });
     //send a request to clear the access token from cookie
     let response = await axios.post(
       `${API}/auth/logout`,
@@ -69,18 +85,21 @@ class App extends Component {
 
     if (data.success) {
       //Update the state
-      this.setState(prevState => ({ ...prevState, isLoggedIn: false }));
+      this.setState((prevState) => ({ ...prevState, isLoggedIn: false }));
+      this.setState({ loading: false });
       return data;
     }
   };
 
-  check = async () => {
+  checkAuth = async () => {
+    this.setState({ loading: true });
     let response = await axios.post(
       `${API}/auth/check`,
       {},
       { withCredentials: true }
     );
     let data = await response.data;
+    this.setState({ loading: false });
     return data;
   };
 
@@ -91,9 +110,10 @@ class App extends Component {
           isLoggedIn: this.state.isLoggedIn,
           login: this.login,
           logout: this.logout,
-          check: this.check,
+          check: this.checkAuth,
         }}
       >
+        {this.state.loading && <Loading visible={false} />}
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -101,7 +121,9 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/reset" exact component={Reset} />
             <Route path="/reset/submit/:token" component={ResetSubmit} />
-            {this.state.isLoggedIn && <Route path="/ReadMessages" component={ReadMessages} />}
+            {this.state.isLoggedIn && (
+              <Route path="/ReadMessages" component={ReadMessages} />
+            )}
             <Route component={NotFound} />
           </Switch>
         </Router>
