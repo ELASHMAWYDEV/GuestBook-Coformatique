@@ -25,6 +25,7 @@ import {
 
 //Components
 import Loading from "./components/Loading/Loading";
+import Footer from "./components/Footer/Footer";
 
 class App extends Component {
   state = {
@@ -158,6 +159,7 @@ class App extends Component {
             <Route component={NotFound} />
           </Switch>
         </Router>
+        <Footer />
       </AuthContext.Provider>
     );
   }
