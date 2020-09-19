@@ -124,9 +124,7 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/reset" exact component={Reset} />
             <Route path="/reset/submit/:token" component={ResetSubmit} />
-            {this.state.isLoggedIn ? ( //All private routes here
-              <Route path="/ReadMessages" component={ReadMessages} />
-            ) : null}
+            <Route path="/ReadMessages" component={ReadMessages} />
             <Route component={NotFound} />
           </Switch>
         </Router>

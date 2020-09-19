@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./WriteMessage.scss";
+import axios from "axios";
+import { API } from "../../config/config";
 
 //Context
 import AuthContext from "../../context/AuthContext";
@@ -15,6 +17,8 @@ class WriteMessage extends Component {
     boxVisible: false,
     success: [],
     errors: [],
+    msg: "",
+    newMessage: (message) => null
   };
 
   componentDidMount = () => {
@@ -32,8 +36,31 @@ class WriteMessage extends Component {
   toggleBox = (isLoggedIn) => {
     isLoggedIn
       ? this.setState({ boxVisible: !this.state.boxVisible })
-      : this.setState({ errors: ["You must login first to write messages"] });
+      : this.setState({ errors: ["You must login first to add messages"] });
   };
+
+  addMessage = async (e) => {
+    e.preventDefault();
+
+    let response = await axios.post(
+      `${API}/messages/add`,
+      {
+        msg: this.state.msg,
+      },
+      { withCredentials: true }
+    );
+
+    let data = await response.data;
+
+    if (data.success) {
+      this.setState({ success: data.messages, boxVisible: false });
+      //pass new message to parent component
+      this.props.newMessage(data.msg);
+    } else {
+      this.setState({ errors: data.errors });
+    }
+  };
+
   render() {
     return (
       <AuthContext.Consumer>
@@ -69,11 +96,18 @@ class WriteMessage extends Component {
                       onClick={this.toggleBox}
                     />
                     <h3>Write a new message</h3>
-                    <div className="input-container">
-                      <label>Message</label>
-                      <textarea placeholder="Message" />
-                    </div>
-                    <button className="save-btn">Save</button>
+                    <form onSubmit={this.addMessage}>
+                      <div className="input-container">
+                        <label>Message</label>
+                        <textarea
+                          placeholder="Message"
+                          onChange={(e) =>
+                            this.setState({ msg: e.target.value })
+                          }
+                        />
+                      </div>
+                      <button className="save-btn">Save</button>
+                    </form>
                   </div>
                 </div>
               )}
