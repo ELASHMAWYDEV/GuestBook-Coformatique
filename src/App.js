@@ -28,7 +28,7 @@ import Loading from "./components/Loading/Loading";
 
 class App extends Component {
   state = {
-    isLoggedIn: false,
+    isLoggedIn: true,
     loading: false,
   };
 

@@ -2,6 +2,9 @@
 
 
 
+.edit-box-container {
+  @include popupMsgBox;
+}
 
 .msg-box {
   position: relative;
@@ -87,6 +90,11 @@
     border-right: 2px solid $lightGray;
     flex: 1;
   }
+  .edit {
+    flex: 1;
+    margin-top: auto;
+  }
+ 
   .marked-overlay {
     position: absolute;
     top: 0;
