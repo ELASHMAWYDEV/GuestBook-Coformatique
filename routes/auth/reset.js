@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const db = require("../../db");
 const ObjectId = require("mongodb").ObjectID;
 const crypto = require("crypto");
-const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN;
+const CLIENT_URL = process.env.CLIENT_URL;
 const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
