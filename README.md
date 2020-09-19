@@ -7,7 +7,8 @@ of the recruitment process on the company.
 
 ### Live Demo
 
-You can watch a live demo of this app [here](https://guestbook-coformatique-react.herokuapp.com)
+You can watch a live demo of this app [here](https://guestbook-coformatique-react.herokuapp.com).
+The node server is in another branch on the same repo, you can find it [here](https://github.com/ELASHMAWYDEV/GuestBook-Coformatique/tree/server)
 
 ## Project Features
 
@@ -33,3 +34,5 @@ already recieved on Login
 **This approche adds a high level of security to the react app**
 * `Check Auth`: When the app loads for the first time, a request is sent to the server to check if he has credentials
 * `Database Token`: The JWT token is saved on the Database on login, and cleared on logout
+
+
