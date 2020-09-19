@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
     }
 
     //PROCEED if all is OK
-    let newMessage = await db.collection("messages").findOneAndUpdate({ _id: ObjectId(message._id), user_id: ObjectId(req.user._id) }, { $set: { msg: message.msg } }, { returnOriginal: false });
+    let newMessage = await db.collection("messages").findOneAndUpdate({ _id: ObjectId(message._id), user_id: req.user._id }, { $set: { msg: message.msg } }, { returnOriginal: false });
     
     if (newMessage.value) {
       return res.json({
