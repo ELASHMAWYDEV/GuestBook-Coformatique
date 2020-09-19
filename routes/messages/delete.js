@@ -9,12 +9,12 @@ const ObjectId = require("mongodb").ObjectId;
 router.post("/", async (req, res) => {
   try {
     //check if user has credentials
-    // if (!req.user) {
-    //   return res.json({
-    //     success: false,
-    //     errors: ["You are not allowed to delete this message"]
-    //   });
-    // }
+    if (!req.user) {
+      return res.json({
+        success: false,
+        errors: ["You are not allowed to delete this message"]
+      });
+    }
 
     //Initial params
     let message = req.body;
