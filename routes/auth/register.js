@@ -93,8 +93,8 @@ router.post("/", async (req, res) => {
       res.cookie("@access_token", accessToken, {
         maxAge: 86400,
         httpOnly: true,
-        domain: process.env.CLIENT_DOMAIN,
         secure: process.env.NODE_ENV == "production" ? true : false,
+        signed: true,
       });
 
       //delete password from user object
