@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
       return res.json({
         success: true,
         messages: ["Your message was updated successfully"],
-        newMessage
+        newMessage: newMessage.value
       });
     } else {
       return res.json({
