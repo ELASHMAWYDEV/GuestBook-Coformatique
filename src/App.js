@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import "./App.scss";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import { API } from "./config/config";
 
@@ -38,6 +34,7 @@ class App extends Component {
   componentWillMount = async () => {
     //assign the AuthContext to the App component
     this.Auth = this.context;
+    this.setState({ loading: true }); //Start loading screen
     //check if user has credentials before App loads
     let AuthCheck = await this.checkAuth();
 
@@ -46,6 +43,7 @@ class App extends Component {
     } else {
       this.setState({ isLoggedIn: false });
     }
+    this.setState({ loading: false }); //Stop loading screen
   };
 
   //login function to requset credentials from the server
@@ -136,10 +134,11 @@ class App extends Component {
   };
 
   render() {
+    let isLoggedIn = this.state.isLoggedIn;
     return (
       <AuthContext.Provider
         value={{
-          isLoggedIn: this.state.isLoggedIn,
+          isLoggedIn,
           login: this.login,
           register: this.register,
           logout: this.logout,

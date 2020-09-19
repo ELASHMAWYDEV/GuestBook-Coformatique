@@ -7,6 +7,9 @@
 }
 
 .msg-box {
+  &.not-visible {
+    display: none;
+  }
   position: relative;
   min-width: 350px;
   height: 200px;

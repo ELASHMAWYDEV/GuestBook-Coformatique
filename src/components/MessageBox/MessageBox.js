@@ -22,7 +22,7 @@ class MessageBox extends Component {
     editBox: false,
     msg: this.props.message,
     success: [],
-    errors: []
+    errors: [],
   };
 
   static defaultProps = {
@@ -53,8 +53,28 @@ class MessageBox extends Component {
     let data = await response.data;
 
     if (data.success) {
-      this.setState({ success: data.messages, msg: data.newMessage, editBox: false });
+      this.setState({
+        success: data.messages,
+        msg: data.newMessage,
+        editBox: false,
+      });
       setTimeout(() => window.location.reload(), 3000);
+    } else {
+      this.setState({ errors: data.errors });
+    }
+  };
+
+  readMessage = async () => {
+    let response = await axios.post(
+      `${API}/messages/read`,
+      { message: this.state.msg },
+      { withCredentials: true }
+    );
+
+    let data = await response.data;
+
+    if (data.success) {
+      this.setState({ success: data.messages });
     } else {
       this.setState({ errors: data.errors });
     }
@@ -64,7 +84,6 @@ class MessageBox extends Component {
     let message = this.state.message;
     let msgTime = new Date(message.createdAt);
     return (
-      this.state.boxShown && (
         <>
           {this.state.errors.length != 0 && (
             <Notifier
@@ -107,7 +126,7 @@ class MessageBox extends Component {
               </div>
             </div>
           )}
-          <div className={`msg-box ${this.state.marked && "marked-box"}`}>
+          <div className={`msg-box ${this.state.marked && "marked-box"}${!this.state.boxShown && " not-visible"}`}>
             <div className="box-header">
               <div className="username">{message.username}</div>
               <div className="time">
@@ -116,34 +135,40 @@ class MessageBox extends Component {
               </div>
             </div>
             <div className="msg-text">{message.msg}</div>
-            <div className="bottom-container">
-              {!this.props.own ? (
-                <>
-                  <div className="mark-read" onClick={() => this.markBox()}>
-                    <p>Mark read</p>
-                    <img src={doneImage} alt="Mark read" />
-                  </div>
-                  <div className="reply">
-                    <p>reply</p>
-                    <img src={replyImage} alt="reply" />
-                  </div>
-
-                  {this.state.marked && (
-                    <div className="marked-overlay">
-                      <FontAwesomeIcon icon={faCheck} />
+            {!this.props.read && (
+              <div className="bottom-container">
+                {!this.props.own ? (
+                  <>
+                    <div
+                      className="mark-read"
+                      onClick={() => {
+                        this.markBox();
+                        this.readMessage();
+                      }}
+                    >
+                      <p>Mark read</p>
+                      <img src={doneImage} alt="Mark read" />
                     </div>
-                  )}
-                </>
-              ) : (
-                <div className="edit" onClick={this.toggleBox}>
-                  <p>Edit</p>
-                  <img src={editImage} alt="edit" />
-                </div>
-              )}
-            </div>
+                    <div className="reply">
+                      <p>reply</p>
+                      <img src={replyImage} alt="reply" />
+                    </div>
+                  </>
+                ) : (
+                  <div className="edit" onClick={this.toggleBox}>
+                    <p>Edit</p>
+                    <img src={editImage} alt="edit" />
+                  </div>
+                )}
+              </div>
+            )}{" "}
+            {this.state.marked && (
+              <div className="marked-overlay">
+                <FontAwesomeIcon icon={faCheck} />
+              </div>
+            )}
           </div>
         </>
-      )
     );
   }
 }
