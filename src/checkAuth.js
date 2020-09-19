@@ -9,13 +9,12 @@ import { API } from "./config/config";
 */
 
 
-const checkAuth = () => {
-  let response = axios.post(`${API}/auth/check`, {}, { withCredentials: true });
-  let data = response.data;
+const checkAuth = async () => {
+  let response = await axios.post(`${API}/auth/check`, {}, { withCredentials: true });
+  let data = await response.data;
 
-  console.log(data);
-  if (data.success) return true;
-  else return false;
+  if (data.success) return await true;
+  else return await false;
 }
 
 export default checkAuth;

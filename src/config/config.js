@@ -1,1 +1,1 @@
-export const API = "https://guestbook-coformatique-server.herokuapp.com"; 
+export const API = "http://localhost:5000"; 

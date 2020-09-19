@@ -1,25 +1,33 @@
 import React, { Component } from "react";
 import "./HomeHeader.scss";
 import { Link } from "react-router-dom";
-import Cookie from "js-cookie";
+import { API } from "../../config/config";
+import axios from "axios";
+import checkAuth from "../../checkAuth";
 
 class HomeHeader extends Component {
   state = {
     isLoggedIn: false,
   };
 
-  componentDidMount = () => {
-    // this.setState({ isLoggedIn: this.context });
-  };
-  logout = () => {
-    //remove the access token
-    Cookie.remove("@access_token");
+  componentDidMount = async () => {
+    const isLoggedIn = await checkAuth();
+    this.setState({ isLoggedIn });
+  }
 
-    //remove the user
-    Cookie.remove("@user");
+  logout = async () => {
+    //send a request to clear the access token from cookie
+    let response = await axios.post(
+      `${API}/auth/logout`,
+      {},
+      { withCredentials: true }
+    );
+    let data = await response.data;
 
-    //Update the state
-    this.setState({ isLoggedIn: false });
+    if (data.success) {
+      //Update the state
+      this.setState({ isLoggedIn: false });
+    }
   };
 
   render() {
@@ -34,18 +42,18 @@ class HomeHeader extends Component {
                 <Link to="/ReadMessages">Read Messages</Link>
                 <Link to="/MyMessages">My Messages</Link>
               </div>
-              <Link to="/" className="logout-btn">
+              <Link to="/" className="logout-btn" onClick={this.logout}>
                 Logout
               </Link>
             </>
           ) : (
             <>
-            <Link to="/register" className="register-btn">
-            Register
-            </Link>
-            <Link to="/login" className="login-btn">
-              Login
-            </Link>
+              <Link to="/register" className="register-btn">
+                Register
+              </Link>
+              <Link to="/login" className="login-btn">
+                Login
+              </Link>
             </>
           )}
         </div>
