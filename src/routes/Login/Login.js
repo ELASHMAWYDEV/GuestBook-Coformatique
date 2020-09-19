@@ -31,7 +31,7 @@ class Login extends Component {
 
     if (response.success) {
       this.setState({
-        success: [...response.messages, "Redirecting to home page..."],
+        success: [...response.messages, "Redirecting to home page..."]
       });
     } else {
       this.setState({ errors: response.errors });

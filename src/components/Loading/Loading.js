@@ -14,6 +14,7 @@ class Loading extends Component {
   }
 
   componentDidUpdate = () => {
+    //To close the loading screen on changing visible prop
     if (this.props.visible == false) {
       setTimeout(() => {
         this.setState({ visible: false });

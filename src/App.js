@@ -6,7 +6,6 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import PrivateRoute from "./routes/PrivateRoute";
 import axios from "axios";
 import { API } from "./config/config";
 
@@ -24,22 +23,23 @@ import {
   NotFound,
 } from "./routes/index";
 
-
 //Components
 import Loading from "./components/Loading/Loading";
-
 
 class App extends Component {
   state = {
     isLoggedIn: false,
-    loading: false
+    loading: false,
   };
 
   static contextType = AuthContext;
 
   componentWillMount = async () => {
+    //assign the AuthContext to the App component
     this.Auth = this.context;
-    let AuthCheck = await this.checkAuth()  ;
+    //check if user has credentials before App loads
+    let AuthCheck = await this.checkAuth();
+
     if (AuthCheck.success) {
       this.setState({ isLoggedIn: true });
     } else {
@@ -47,8 +47,9 @@ class App extends Component {
     }
   };
 
+  //login function to requset credentials from the server
   login = async (user, password) => {
-    this.setState({ loading: true });
+    this.setState({ loading: true }); //Start loading screen
     let response = await axios.post(
       `${API}/auth/login`,
       {
@@ -63,18 +64,19 @@ class App extends Component {
     let data = await response.data;
     if (data.success) {
       this.setState((prevState) => ({ ...prevState, isLoggedIn: true }));
-      
+
       this.setState({ loading: false });
       return data;
     } else {
       this.setState({ isLoggedIn: false });
-      this.setState({ loading: false });
+      this.setState({ loading: false }); //Stop loading screen
       return data;
     }
   };
 
+  //logout function to remove the credentials from the client & the server
   logout = async () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true }); //Start loading screen
     //send a request to clear the access token from cookie
     let response = await axios.post(
       `${API}/auth/logout`,
@@ -86,20 +88,21 @@ class App extends Component {
     if (data.success) {
       //Update the state
       this.setState((prevState) => ({ ...prevState, isLoggedIn: false }));
-      this.setState({ loading: false });
+      this.setState({ loading: false }); //Stop loading screen
       return data;
     }
   };
 
+  //Check if user has credentials before loading whole APP
   checkAuth = async () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true }); //Start loading screen
     let response = await axios.post(
       `${API}/auth/check`,
       {},
       { withCredentials: true }
     );
     let data = await response.data;
-    this.setState({ loading: false });
+    this.setState({ loading: false }); //Stop loading screen
     return data;
   };
 
@@ -121,8 +124,10 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/reset" exact component={Reset} />
             <Route path="/reset/submit/:token" component={ResetSubmit} />
-            {this.state.isLoggedIn && (
-              <Route path="/ReadMessages" component={ReadMessages} />
+            {this.state.isLoggedIn && ( //All private routes here
+              <>
+                <Route path="/ReadMessages" component={ReadMessages} />
+              </>
             )}
             <Route component={NotFound} />
           </Switch>
