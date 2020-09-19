@@ -25,7 +25,7 @@ class Home extends Component {
 
   componentDidMount = () => {
     
-    setTimeout(() => this.getMessages(this.context.isLoggedIn), 80);
+    setTimeout(() => this.getMessages(this.context.isLoggedIn), 200);
   };
 
   getMessages = async (isLoggedIn = false) => {
