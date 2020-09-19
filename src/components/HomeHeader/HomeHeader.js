@@ -13,6 +13,10 @@ class HomeHeader extends Component {
 
   static contextType = AuthContext;
 
+  componentDidMount = () => {
+    this.Auth = this.context;
+  }
+
   logout = async () => {
     let response = await this.Auth.logout();
     if (response.success) {
