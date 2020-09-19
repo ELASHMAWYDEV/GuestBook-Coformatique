@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     }
 
     //Initial params
-    let message = req.body;
+    let message = req.body.message;
     let errors = [];
 
     //handle development errors
@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
     //PROCEED if all is OK
     let deleteMessage = await db.collection("messages").findOneAndDelete({ _id: ObjectId(message._id) });
     
-    if (newMessage && newMessage.value) {
+    if (deleteMessage && deleteMessage.value) {
       return res.json({
         success: true,
         messages: ["Your message was deleted successfully"]
