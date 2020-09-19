@@ -58,13 +58,13 @@ class Home extends Component {
         {({ isLoggedIn }) => {
           return (
             <>
-              {this.state.errors.length != 0 && (
+              {this.state.errors.length !== 0 && (
                 <Notifier
                   messages={this.state.errors}
                   onDone={() => this.setState({ errors: [] })}
                 />
               )}
-              {this.state.success.length != 0 && (
+              {this.state.success.length !== 0 && (
                 <Notifier
                   messages={this.state.success}
                   type={true}
@@ -72,13 +72,13 @@ class Home extends Component {
                 />
               )}
               {this.state.loading && <Loading />}
-              {this.state.errors.length != 0 && (
+              {this.state.errors.length !== 0 && (
                 <Notifier
                   messages={this.state.errors}
                   onDone={() => this.setState({ errors: [] })}
                 />
               )}
-              {this.state.success.length != 0 && (
+              {this.state.success.length !== 0 && (
                 <Notifier
                   messages={this.state.success}
                   type={true}

@@ -44,13 +44,13 @@ class Login extends Component {
         {({ isLoggedIn }) => (
           <>
             {isLoggedIn && <Redirect to="/" />}
-            {this.state.errors.length != 0 && (
+            {this.state.errors.length !== 0 && (
               <Notifier
                 messages={this.state.errors}
                 onDone={() => this.setState({ errors: [] })}
               />
             )}
-            {this.state.success.length != 0 && (
+            {this.state.success.length !== 0 && (
               <Notifier
                 messages={this.state.success}
                 type={true}

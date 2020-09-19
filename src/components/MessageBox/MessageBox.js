@@ -38,8 +38,8 @@ class MessageBox extends Component {
   };
 
   pressESC = (e) => {
-    if (e.keyCode == 27 && this.state.editBox) this.toggleEditBox();
-    if (e.keyCode == 27 && this.state.replyBox) this.toggleReplyBox();
+    if (e.keyCode === 27 && this.state.editBox) this.toggleEditBox();
+    if (e.keyCode === 27 && this.state.replyBox) this.toggleReplyBox();
   };
 
   toggleEditBox = () => {
@@ -129,13 +129,13 @@ class MessageBox extends Component {
     let msgTime = new Date(message.createdAt);
     return (
       <>
-        {this.state.errors.length != 0 && (
+        {this.state.errors.length !== 0 && (
           <Notifier
             messages={this.state.errors}
             onDone={() => this.setState({ errors: [] })}
           />
         )}
-        {this.state.success.length != 0 && (
+        {this.state.success.length !== 0 && (
           <Notifier
             messages={this.state.success}
             type={true}

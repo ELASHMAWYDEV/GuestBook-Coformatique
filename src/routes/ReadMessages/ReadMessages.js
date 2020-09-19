@@ -52,7 +52,7 @@ class ReadMessages extends Component {
           <>
             {this.state.loading && <Loading />}
             {!isLoggedIn && <Redirect to="/" />}
-            {this.state.errors.length != 0 && (
+            {this.state.errors.length !== 0 && (
               <Notifier
                 messages={this.state.errors}
                 onDone={() => this.setState({ errors: [] })}

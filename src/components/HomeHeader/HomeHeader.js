@@ -29,7 +29,7 @@ class HomeHeader extends Component {
       <AuthContext.Consumer>
         {({ isLoggedIn }) => (
           <>
-            {this.state.success.length != 0 && (
+            {this.state.success.length !== 0 && (
               <Notifier
                 messages={this.state.success}
                 type={true}
