@@ -15,11 +15,7 @@ class MessageBox extends Component {
   };
 
   static defaultProps = {
-    message: {
-      username: "Mahmoud",
-      msg:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since standard dummy text ever since standard",
-    },
+    message: {},
   };
 
   markBox = () => {
@@ -29,10 +25,14 @@ class MessageBox extends Component {
 
   render() {
     let message = this.state.message;
+    let msgTime = new Date(message.createdAt);
     return (
       this.state.boxShown && (
         <div className={`msg-box ${this.state.marked && "marked-box"}`}>
-          <div className="username">{message.username}</div>
+          <div className="box-header">
+            <div className="username">{message.username}</div>
+            <div className="time">{message.createdAt && `${msgTime.getHours()}:${msgTime.getMinutes()}  ${msgTime.getDate()}/${msgTime.getMonth()}/${msgTime.getFullYear()}`}</div>
+          </div>
           <div className="msg-text">{message.msg}</div>
           <div className="bottom-container">
             <div className="mark-read" onClick={() => this.markBox()}>

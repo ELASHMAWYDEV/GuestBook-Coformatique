@@ -84,7 +84,7 @@ class Login extends Component {
                     </button>
                     <p className="after-box-notice">
                       if you don't have an account, register
-                      <Link to="/register">here</Link>
+                      <Link to="/register"> here</Link>
                     </p>
                     <p className="after-box-notice">
                       lost your password ? click <Link to="/reset">here</Link>
