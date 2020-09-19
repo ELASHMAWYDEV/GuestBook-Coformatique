@@ -10,5 +10,6 @@ router.use("/add", require("./add"));
 router.use("/edit", require("./edit"));
 router.use("/delete", require("./delete"));
 router.use("/all", require("./all"));
+router.use("/my", require("./my"));
 
 module.exports = router;
