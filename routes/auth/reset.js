@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     if (!userSearch) {
       return res.json({
         success: false,
-        errors: ["You must type your username or email"],
+        errors: ["The username or email is not registered before"],
       });
     }
 
