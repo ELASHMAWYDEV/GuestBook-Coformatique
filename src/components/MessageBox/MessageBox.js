@@ -10,6 +10,7 @@ import doneImage from "../../assets/img/correct.svg";
 import replyImage from "../../assets/img/back.svg";
 import editImage from "../../assets/img/edit.svg";
 import cancelImage from "../../assets/img/cancel.svg";
+import deleteImage from "../../assets/img/delete.svg";
 
 //components
 import Notifier from "../../components/Notifier/Notifier";
@@ -79,6 +80,23 @@ class MessageBox extends Component {
       this.setState({ errors: data.errors });
     }
   };
+
+
+  deleteMessage = async () => {
+    let response = await axios.post(
+      `${API}/messages/delete`,
+      { message: this.state.msg },
+      { withCredentials: true }
+    );
+
+    let data = await response.data;
+
+    if (data.success) {
+      this.setState({ success: data.messages, boxShown: false });
+    } else {
+      this.setState({ errors: data.errors });
+    }
+  }
 
   render() {
     let message = this.state.message;
@@ -154,11 +172,17 @@ class MessageBox extends Component {
                       <img src={replyImage} alt="reply" />
                     </div>
                   </>
-                ) : (
+              ) : (
+                  <>
                   <div className="edit" onClick={this.toggleBox}>
                     <p>Edit</p>
                     <img src={editImage} alt="edit" />
                   </div>
+                  <div className="delete" onClick={this.deleteMessage}>
+                    <p>Delete</p>
+                    <img src={deleteImage} alt="delete" />
+                    </div>
+                    </>
                 )}
               </div>
             )}{" "}
