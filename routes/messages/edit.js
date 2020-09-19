@@ -35,9 +35,9 @@ router.post("/", async (req, res) => {
     }
 
     //PROCEED if all is OK
-    let newMessage = await db.collection("messages").findOneAndUpdate({ _id: ObjectId(message._id) }, { $set: { msg: message.msg } }, { returnOriginal: false });
+    let newMessage = await db.collection("messages").findOneAndUpdate({ _id: ObjectId(message._id), user_id: ObjectId(req.user._id) }, { $set: { msg: message.msg } }, { returnOriginal: false });
     
-    if (!newMessage.value) {
+    if (newMessage.value) {
       return res.json({
         success: true,
         messages: ["Your message was updated successfully"],
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
     } else {
       return res.json({
         success: false,
-        errors: ["Error occured: Please call the developer, 104"]
+        errors: ["Sorry, you are not allowed to edit this message."]
       });
     }
 
