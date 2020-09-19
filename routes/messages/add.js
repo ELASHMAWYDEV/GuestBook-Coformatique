@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
       return res.json({
         success: true,
         messages: ["Your message was added successfully"],
-        msg: storeMessage.value,
+        msg: storeMessage.ops[0],
       });
     } else {
       return res.json({
