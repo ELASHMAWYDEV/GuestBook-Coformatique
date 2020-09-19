@@ -1,16 +1,27 @@
 @import "../../assets/sass/globals";
 
-
-
 .login-container {
   background-color: $black;
-  @include flex;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 30px;
+  .box-container {
+    @include flex;
+    margin: auto;
+  }
   .login-box {
     width: 320px;
     max-width: 95%;
     @include flex(column);
     color: $white;
+    .login-btn {
+      @include submitBtn;
+      width: 100%;
+      font-weight: normal;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
   }
   .separator {
     @include lineSeparator;
@@ -22,13 +33,7 @@
       @include inputField;
     }
   }
-  .login-btn {
-    @include submitBtn;
-    width: 100%;
-    font-weight: normal;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
+
   .after-box-notice {
     @include afterBoxNotice;
   }

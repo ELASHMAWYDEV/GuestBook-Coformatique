@@ -29,8 +29,13 @@ class App extends Component {
     isLoggedIn: false,
   };
 
+  static contextType = AuthContext;
+
+  componentDidMount = () => {
+    this.Auth = this.context;
+    this.setState({ isLoggedIn: this.Auth.isLoggedIn });
+  };
   login = async (user, password) => {
-    axios.create({ withCredentials: true });
     let response = await axios.post(
       `${API}/auth/login`,
       {
@@ -44,7 +49,8 @@ class App extends Component {
 
     let data = await response.data;
     if (data.success) {
-      this.setState({ isLoggedIn: true });
+      this.setState(prevState => ({ ...prevState, isLoggedIn: true }));
+      console.log(this.state.isLoggedIn, AuthContext);
       return data;
     } else {
       this.setState({ isLoggedIn: false });
@@ -63,10 +69,20 @@ class App extends Component {
 
     if (data.success) {
       //Update the state
-      this.setState({ isLoggedIn: false });
-      return true;
+      this.setState(prevState => ({ ...prevState, isLoggedIn: false }));
+      return data;
     }
-  }
+  };
+
+  check = async () => {
+    let response = await axios.post(
+      `${API}/auth/check`,
+      {},
+      { withCredentials: true }
+    );
+    let data = await response.data;
+    return data;
+  };
 
   render() {
     return (
@@ -74,7 +90,8 @@ class App extends Component {
         value={{
           isLoggedIn: this.state.isLoggedIn,
           login: this.login,
-          logout: this.logout
+          logout: this.logout,
+          check: this.check,
         }}
       >
         <Router>
@@ -84,7 +101,7 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/reset" exact component={Reset} />
             <Route path="/reset/submit/:token" component={ResetSubmit} />
-            <PrivateRoute path="/ReadMessages" component={ReadMessages} />
+            {this.state.isLoggedIn && <Route path="/ReadMessages" component={ReadMessages} />}
             <Route component={NotFound} />
           </Switch>
         </Router>

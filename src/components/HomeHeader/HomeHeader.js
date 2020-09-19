@@ -1,33 +1,18 @@
 import React, { Component } from "react";
 import "./HomeHeader.scss";
 import { Link } from "react-router-dom";
-import { API } from "../../config/config";
-import axios from "axios";
-import checkAuth from "../../checkAuth";
+import AuthContext from "../../context/AuthContext";
 
 class HomeHeader extends Component {
   state = {
     isLoggedIn: false,
   };
 
-  componentDidMount = async () => {
-    const isLoggedIn = await checkAuth();
-    this.setState({ isLoggedIn });
-  }
+  static contextType = AuthContext;
 
-  logout = async () => {
-    //send a request to clear the access token from cookie
-    let response = await axios.post(
-      `${API}/auth/logout`,
-      {},
-      { withCredentials: true }
-    );
-    let data = await response.data;
-
-    if (data.success) {
-      //Update the state
-      this.setState({ isLoggedIn: false });
-    }
+  componentDidMount = () => {
+    this.Auth = this.context;
+    this.setState({ isLoggedIn: this.Auth.isLoggedIn });
   };
 
   render() {
