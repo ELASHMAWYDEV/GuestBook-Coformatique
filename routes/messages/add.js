@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db");
-const ObjectId = require("mongodb").ObjectId;
 
 router.post("/", async (req, res) => {
   try {
@@ -32,7 +31,7 @@ router.post("/", async (req, res) => {
     //PROCEED if all is OK
     let storeMessage = await db
       .collection("messages")
-      .insertOne({ msg: message.msg, user_id: req.user._id, username: req.user.username });
+      .insertOne({ msg: message.msg, user_id: req.user._id, username: req.user.username, createdAt: new Date().getTime() });
 
     if (storeMessage && storeMessage.insertedCount != 0) {
       return res.json({
