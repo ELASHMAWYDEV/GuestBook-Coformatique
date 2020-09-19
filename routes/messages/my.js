@@ -21,15 +21,15 @@ router.post("/", async (req, res) => {
     }
 
     //PROCEED if all is OK
-    let getMessages = await db
+    let messages = await db
       .collection("messages")
       .find({ user_id: req.user._id }).toArray();
 
-    if (getMessages.length != 0) {
+    if (messages.length != 0) {
       return res.json({
         success: true,
         messages: ["Your message was added successfully"],
-        getMessages
+        messages
       });
     } else {
       return res.json({
