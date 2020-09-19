@@ -2,7 +2,7 @@
 
 
 
-.edit-box-container {
+.edit-box-container, .reply-box-container {
   @include popupMsgBox;
 }
 
