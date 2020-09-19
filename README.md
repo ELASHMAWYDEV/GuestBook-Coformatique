@@ -1,68 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Guest Book
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This React app was built for [Coformatique](https://www.linkedin.com/company/coformatique) as a task 
+of the recruitment process on the company.
 
-### `yarn start`
+### Live Demo
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You can watch a live demo of this app [here](https://guestbook-coformatique-react.herokuapp.com)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Project Features
 
-### `yarn test`
+* Login
+* Register
+* Reset password link sent with email
+* Add messages
+* Reply to messages
+* Delete messages
+* Mark messages as read
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Security Approches
 
-### `yarn build`
+In order to ensure the security of this react application, I have implemented these approches
+in my `Guest Book` app.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* `signed cookie`: To authenticate with the server, the user has to send the signed cookie he
+already recieved on Login
+* `secure cookie`: The node js server must be served over HTTPS protocol
+* `JWT`: When user logs in, he recieves a cookie containing the JWT token that holds his information
+**The JWT cookie doesn't contain any sensetive data**
+* `origin cookie`: In the deployment process, you must set the env `CLIENT_URL`, that points to the react app url 
+**This approche adds a high level of security to the react app**
+* `Check Auth`: When the app loads for the first time, a request is sent to the server to check if he has credentials
+* `Database Token`: The JWT token is saved on the Database on login, and cleared on logout
