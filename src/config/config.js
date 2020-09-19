@@ -1,1 +1,1 @@
-export const API = "http://localhost:5000"; //DON'T FORGET TO USE HTTPS ONLY
+export const API = "https://guestbook-coformatique-server.herokuapp.com"; //DON'T FORGET TO USE HTTPS ONLY, NO TRAILING SLAHS
