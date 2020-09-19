@@ -116,7 +116,7 @@ class App extends Component {
           check: this.checkAuth,
         }}
       >
-        {this.state.loading && <Loading visible={false} />}
+        {this.state.loading && <Loading />}
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />

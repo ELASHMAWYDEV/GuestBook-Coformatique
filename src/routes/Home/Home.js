@@ -3,28 +3,28 @@ import "./Home.scss";
 import axios from "axios";
 import { API } from "../../config/config";
 
-
-
 //Components
 import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import WriteMessage from "../../components/WriteMessage/WriteMessage";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import Notifier from "../../components/Notifier/Notifier";
-
-
+import Loading from "../../components/Loading/Loading";
 
 class Home extends Component {
   state = {
     success: [],
     errors: [],
-    messages: []
+    messages: [],
+    loading: false,
   };
 
   componentWillMount = () => {
     this.getMessages();
-  } 
+  };
 
   getMessages = async () => {
+    this.setState({ loading: true }); //Start loading screen
+
     let response = await axios.post(`${API}/messages/all`);
 
     let data = await response.data;
@@ -34,11 +34,13 @@ class Home extends Component {
     } else {
       this.setState({ errors: data.errors });
     }
+    this.setState({ loading: false }); //Stop loading screen
   };
 
   render() {
     return (
       <>
+        {this.state.loading && <Loading />}
         {this.state.errors.length != 0 && (
           <Notifier
             messages={this.state.errors}
@@ -54,7 +56,11 @@ class Home extends Component {
         )}
         <div className="home-container">
           <HomeHeader />
-          <WriteMessage newMessage={message => this.setState({messages: [ message, ...this.state.messages]})}/>
+          <WriteMessage
+            newMessage={(message) =>
+              this.setState({ messages: [message, ...this.state.messages] })
+            }
+          />
           <div className="messages-container">
             {this.state.messages.map((msg, i) => (
               <MessageBox key={i} message={msg} />
