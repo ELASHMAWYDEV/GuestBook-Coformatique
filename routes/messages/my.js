@@ -12,14 +12,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    //If any errors occured ===> STOP
-    if (errors.length != 0) {
-      return res.json({
-        success: false,
-        errors,
-      });
-    }
-
     //PROCEED if all is OK
     let messages = await db
       .collection("messages")
