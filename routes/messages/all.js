@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../../db");
 
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   try {
 
     let messages = await db.collection("messages").find({}).toArray();
@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
         errors: ["There are no messages to show at the moment"]
       });
     }
-    
+
   } catch (e) {
     return res.json({
       success: false,
