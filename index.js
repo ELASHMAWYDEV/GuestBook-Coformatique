@@ -7,16 +7,10 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5000;
 
 //Cors Config to be make the client side able to send cookies (JWT token)
-const corsConfig =
-  process.env.NODE_ENV !== "production"
-    ? {
-        origin: "http://localhost:3000",
-        credentials: true,
-      }
-    : {
-        origin: process.env.CLIENT_URL,
-        credentials: true,
-      };
+const corsConfig = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+};
 
 //middlewares
 app.use(cors(corsConfig));
