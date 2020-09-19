@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     if (!req.user) {
       return res.json({
         success: false,
-        errors: ["You are not allowed to edit this message"],
+        errors: ["You must login first to mark this message as read"],
       });
     }
 
@@ -17,9 +17,6 @@ router.post("/", async (req, res) => {
     let message = req.body.message;
     let errors = [];
 
-    //handle input errors
-    if (message.msg.length < 20)
-      errors.push("Your message must have at least 20 characters");
     //handle development errors
     if (!message._id)
       errors.push("Error occured: Please call the developer, 101");
@@ -38,15 +35,15 @@ router.post("/", async (req, res) => {
     let newMessage = await db
       .collection("messages")
       .findOneAndUpdate(
-        { _id: ObjectId(message._id), user_id: req.user._id },
-        { $set: { msg: message.msg } },
+        { _id: ObjectId(message._id) },
+        { $push: { read: req.user._id } },
         { returnOriginal: false }
       );
 
     if (newMessage.value) {
       return res.json({
         success: true,
-        messages: ["Your message was updated successfully"],
+        messages: ["Your message was marked read successfully"],
         newMessage: newMessage.value,
       });
     } else {
@@ -62,5 +59,44 @@ router.post("/", async (req, res) => {
     });
   }
 });
+
+router.post("/get", async (req, res) => {
+  try {
+    //check if user has credentials
+    if (!req.user) {
+      return res.json({
+        success: false,
+        errors: ["You must login first to view read messages"],
+      });
+    }
+
+
+    //PROCEED if all is OK
+    let messages = await db
+      .collection("messages")
+      .find({ read: { $in: [req.user._id] } })
+      .toArray();
+
+    if (messages.length != 0) {
+      return res.json({
+        success: true,
+        messages: messages,
+      });
+    } else {
+      return res.json({
+        success: false,
+        errors: ["You have not marked any messages as read"],
+      });
+    }
+  } catch (e) {
+    return res.json({
+      success: false,
+      errors: [`Error occured: ${e.message}`],
+    });
+  }
+});
+
+
+
 
 module.exports = router;

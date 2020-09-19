@@ -11,5 +11,6 @@ router.use("/edit", require("./edit"));
 router.use("/delete", require("./delete"));
 router.use("/all", require("./all"));
 router.use("/my", require("./my"));
+router.use("/read", require("./read"));
 
 module.exports = router;
