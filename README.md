@@ -7,7 +7,7 @@ of the recruitment process on the company.
 
 ### Live Demo
 
-You can watch a live demo of this app [here](https://guestbook-coformatique-react.herokuapp.com).
+You can watch a live demo of this app [here](https://suspicious-turing-b08deb.netlify.app/).
 The node server is in another branch on the same repo, you can find it [here](https://github.com/ELASHMAWYDEV/GuestBook-Coformatique/tree/server)
 
 ## Project Features
