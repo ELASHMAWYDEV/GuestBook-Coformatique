@@ -57,12 +57,12 @@ class Home extends Component {
         <div className="home-container">
           <HomeHeader />
           <WriteMessage
-            newMessage={(message) =>
-              this.setState({ messages: [message, ...this.state.messages] })
-            }
+            newMessage={(message) => {
+              this.getMessages();
+            }}
           />
           <div className="messages-container">
-            {this.state.messages.map((msg, i) => (
+            {this.state.messages.reverse().map((msg, i) => (
               <MessageBox key={i} message={msg} />
             ))}
           </div>

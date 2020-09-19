@@ -20,6 +20,7 @@ import {
   Reset,
   ResetSubmit,
   ReadMessages,
+  MyMessages,
   NotFound,
 } from "./routes/index";
 
@@ -74,6 +75,34 @@ class App extends Component {
     }
   };
 
+  //register function to requset credentials from the server
+  register = async (username, email, password, passwordConfirm) => {
+    this.setState({ loading: true }); //Start loading screen
+    let response = await axios.post(
+      `${API}/auth/register`,
+      {
+        username,
+        email,
+        password,
+        passwordConfirm,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    let data = await response.data;
+    if (data.success) {
+      this.setState((prevState) => ({ ...prevState, isLoggedIn: true }));
+      this.setState({ loading: false }); //Stop loading screen
+      return data;
+    } else {
+      this.setState({ isLoggedIn: false });
+      this.setState({ loading: false }); //Stop loading screen
+      return data;
+    }
+  };
+
   //logout function to remove the credentials from the client & the server
   logout = async () => {
     this.setState({ loading: true }); //Start loading screen
@@ -112,6 +141,7 @@ class App extends Component {
         value={{
           isLoggedIn: this.state.isLoggedIn,
           login: this.login,
+          register: this.register,
           logout: this.logout,
           check: this.checkAuth,
         }}
@@ -125,6 +155,7 @@ class App extends Component {
             <Route path="/reset" exact component={Reset} />
             <Route path="/reset/submit/:token" component={ResetSubmit} />
             <Route path="/ReadMessages" component={ReadMessages} />
+            <Route path="/MyMessages" component={MyMessages} />
             <Route component={NotFound} />
           </Switch>
         </Router>

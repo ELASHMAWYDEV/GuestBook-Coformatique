@@ -31,7 +31,7 @@ class Login extends Component {
 
     if (response.success) {
       this.setState({
-        success: [...response.messages, "Redirecting to home page..."]
+        success: [...response.messages, "Redirecting to home page..."],
       });
     } else {
       this.setState({ errors: response.errors });
@@ -59,10 +59,10 @@ class Login extends Component {
             )}
             <div className="login-container">
               <div className="box-container">
-                <div className="login-box">
-                  <h2>Login</h2>
-                  <span className="separator"></span>
-                  <form onSubmit={this.login}>
+                <form onSubmit={this.login}>
+                  <div className="login-box">
+                    <h2>Login</h2>
+                    <span className="separator"></span>
                     <div className="inputs">
                       <input
                         placeholder="Username or email"
@@ -82,19 +82,19 @@ class Login extends Component {
                     <button className="login-btn" type="submit">
                       login
                     </button>
-                  </form>
-                  <p className="after-box-notice">
-                    if you don't have an account, register{" "}
-                    <Link to="/register">here</Link>
-                  </p>
-                  <p className="after-box-notice">
-                    lost your password ? click <Link to="/reset">here</Link> to
-                    reset
-                  </p>
-                  <Link to="/" className="go-home-btn">
-                    Go to home
-                  </Link>
-                </div>
+                    <p className="after-box-notice">
+                      if you don't have an account, register{" "}
+                      <Link to="/register">here</Link>
+                    </p>
+                    <p className="after-box-notice">
+                      lost your password ? click <Link to="/reset">here</Link>{" "}
+                      to reset
+                    </p>
+                    <Link to="/" className="go-home-btn">
+                      Go to home
+                    </Link>
+                  </div>
+                </form>
               </div>
             </div>
           </>
