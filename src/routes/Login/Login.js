@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Login.scss";
 import { Link, Redirect } from "react-router-dom";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+
 //Context
 import AuthContext from "../../context/AuthContext";
 
@@ -83,11 +83,11 @@ class Login extends Component {
                       login
                     </button>
                     <p className="after-box-notice">
-                      if you don't have an account, register{" "}
+                      if you don't have an account, register
                       <Link to="/register">here</Link>
                     </p>
                     <p className="after-box-notice">
-                      lost your password ? click <Link to="/reset">here</Link>{" "}
+                      lost your password ? click <Link to="/reset">here</Link>
                       to reset
                     </p>
                     <Link to="/" className="go-home-btn">
