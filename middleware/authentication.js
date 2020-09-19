@@ -5,7 +5,8 @@ const SECRET_TOKEN = process.env.SECRET_TOKEN || "randomaccesstoken";
 
 const authentication = async (req, res, next) => {
   try {
-    let accessToken = req.cookies["@access_token"];
+    //must use signed cookies for security purposes
+    let accessToken = req.signedCookies["@access_token"];
 
     //check if access token is set in cookie
     if (!accessToken) {

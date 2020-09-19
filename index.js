@@ -20,7 +20,7 @@ const corsConfig =
 
 //middlewares
 app.use(cors(corsConfig));
-app.use(cookieParser());
+app.use(cookieParser(process.env.SECRET_TOKEN || "randomsecrettoken")); //a secret token is a must to create signed cookies
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
