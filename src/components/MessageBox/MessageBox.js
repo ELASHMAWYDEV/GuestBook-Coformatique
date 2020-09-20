@@ -177,7 +177,7 @@ class MessageBox extends Component {
                 onClick={this.toggleEditBox}
               />
               <h3>Edit message</h3>
-              <form onSubmit={this.replyMessage}>
+              <form onSubmit={this.editMessage}>
                 <div className="input-container">
                   <label>Message</label>
                   <textarea
