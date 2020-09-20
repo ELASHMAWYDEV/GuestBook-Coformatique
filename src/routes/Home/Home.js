@@ -24,7 +24,8 @@ class Home extends Component {
   static contextType = AuthContext;
 
   componentDidMount = () => {
-    setTimeout(() => this.getMessages(this.context.isLoggedIn), 500);
+    this.setState({ loading: true }); //Start loading screen
+    setTimeout(() => this.getMessages(this.context.isLoggedIn), 1000);
   };
 
   getMessages = async (isLoggedIn = false) => {

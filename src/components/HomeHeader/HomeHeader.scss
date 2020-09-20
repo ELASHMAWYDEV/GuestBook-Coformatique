@@ -1,6 +1,5 @@
 @import "../../assets/sass/globals";
 
-
 .home-header {
   padding-top: 20px;
   @include flex;
@@ -12,7 +11,7 @@
     white-space: nowrap;
   }
   .burger-tab {
-    display:none;
+    display: none;
     width: 50px;
     height: 40px;
     padding: 8px;
@@ -25,7 +24,6 @@
     @include media(tablet-lg) {
       @include flex(column);
       justify-content: space-between;
-      
     }
     span {
       display: block;
@@ -35,24 +33,44 @@
       background-color: $green;
     }
   }
+  .auth-links {
+    @include flex;
+    @include media(tablet-lg) {
+      flex-direction: column;
+      margin-top: 30px;
+      .login-btn {
+        margin: 20px auto;
+        width: 70%;
+        padding: 8px;
+        font-size: 18px;
+      }
+      .register-btn {
+        width: 70%;
+        padding: 8px;
+        font-size: 18px;
+      }
+    }
+  }
   .right-items {
     white-space: nowrap;
     @include flex;
     @include media(tablet-lg) {
-      // display: none;
       @include flex(column);
       display: none;
       position: absolute;
       z-index: 40;
-      top: 0;
+      top: 70px;
       left: 0;
-      bottom: 0;
       right: 0;
+      bottom: 0;
       background-color: $black;
     }
   }
   .nav-links {
     margin-right: 50px;
+    @include media(tablet-lg) {
+      margin-right: 0;
+    }
     a {
       font-weight: normal;
       transition: 0.2s ease;
@@ -61,16 +79,28 @@
         color: $white;
       }
     }
-    @include media(tablet-lg) { 
+    @include media(tablet-lg) {
       @include flex(column);
       a {
-        margin: 15px auto;
+        margin: 0 auto;
         text-align: center;
+        width: 100%;
+        padding: 20px;
+        &:hover {
+          background-color: $green;
+          margin: 0;
+        }
       }
     }
   }
   .logout-btn {
     @include roundedBtn;
+    @include media(tablet-lg) {
+      width: 70% !important;
+      padding: 8px !important;
+      font-size: 18px;
+      margin-top: 50px !important;
+    }
   }
   .login-btn {
     @include roundedBtn($green, $darkGreen);
@@ -81,5 +111,4 @@
     @include roundedBtn;
     width: 110px;
   }
-  
 }
