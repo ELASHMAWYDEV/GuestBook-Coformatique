@@ -20,5 +20,8 @@
   }
   a {
     margin-left: 10px;
+    @include media(phone-lg) {
+      margin-top: 15px;
+    }
   }
 }

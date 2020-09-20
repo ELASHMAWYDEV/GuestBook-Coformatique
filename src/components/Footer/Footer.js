@@ -8,7 +8,7 @@ class Footer extends Component {
       <div className="footer">
         <p>
           designed &amp; developed with <span>&hearts;</span> by
-          <a href="https://elashmawydev"> ELASHMAWY DEV</a>
+          <a href="https://elashmawydev.com"> ELASHMAWY DEV</a>
         </p>
       </div>
     );
