@@ -25,7 +25,7 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.setState({ loading: true }); //Start loading screen
-    setTimeout(() => this.getMessages(this.context.isLoggedIn), 1000);
+    setTimeout(() => this.getMessages(this.context.isLoggedIn), 1500);
   };
 
   getMessages = async (isLoggedIn = false) => {
