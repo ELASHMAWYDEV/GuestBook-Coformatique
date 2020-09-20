@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     if (!req.user) {
       return res.json({
         success: false,
-        errors: ["You are not allowed to reply to this message"],
+        errors: ["You must login first to reply to this message"],
       });
     }
 
