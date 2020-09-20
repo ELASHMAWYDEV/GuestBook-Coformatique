@@ -32,11 +32,6 @@ class MessageBox extends Component {
     message: {},
   };
 
-  markBox = () => {
-    this.setState({ marked: true });
-    setTimeout(() => this.setState({ boxShown: false }), 1000);
-  };
-
   pressESC = (e) => {
     if (e.keyCode === 27 && this.state.editBox) this.toggleEditBox();
     if (e.keyCode === 27 && this.state.replyBox) this.toggleReplyBox();
@@ -82,7 +77,8 @@ class MessageBox extends Component {
     let data = await response.data;
 
     if (data.success) {
-      this.setState({ success: data.messages });
+      this.setState({ success: data.messages, marked: true });
+      setTimeout(() => this.setState({ boxShown: false }), 1000);
     } else {
       this.setState({ errors: data.errors });
     }
@@ -164,7 +160,9 @@ class MessageBox extends Component {
                     }
                   />
                 </div>
-                <button className="save-btn" type="submit">Save</button>
+                <button className="save-btn" type="submit">
+                  Save
+                </button>
               </form>
             </div>
           </div>
@@ -217,7 +215,6 @@ class MessageBox extends Component {
                   <div
                     className="mark-read"
                     onClick={() => {
-                      this.markBox();
                       this.readMessage();
                     }}
                   >
@@ -242,7 +239,7 @@ class MessageBox extends Component {
                 </>
               )}
             </div>
-          )}{" "}
+          )}
           {this.state.marked && (
             <div className="marked-overlay">
               <FontAwesomeIcon icon={faCheck} />
