@@ -1,0 +1,70 @@
+@import "../../assets/sass/globals";
+
+
+.notifier-container {
+  position: absolute;
+  z-index: 45;
+  left: 0;
+  top: 25px;
+  color: $white;
+  animation: notifier 0.5s ease-out 1, notifierClose 0.5s ease-in 5.5s 1;
+  @keyframes notifier {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+
+    }
+  }
+  @keyframes notifierClose {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+
+    }
+  }
+  .msg {
+    border-radius: 0 8px 0 0;
+    color: $lightBlue;
+    position: relative;
+
+    & > div {
+      padding: 15px;
+    }
+    overflow: hidden;
+    margin-bottom: 20px;
+    &.success {
+      color: $black;
+      background-color: $green;
+    }
+    &.error {
+      background-color: $lightRed;
+    }
+  }
+  span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 0;
+    height: 6px;
+    animation: bottomLine 5s ease 0.5s 1;
+    @keyframes bottomLine {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    &.success {
+      background-color: #10ac84;
+    }
+    &.error {
+      background-color: #eb4d4b;
+    }
+  }
+}

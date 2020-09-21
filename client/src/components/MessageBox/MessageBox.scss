@@ -1,0 +1,145 @@
+@import "../../assets/sass/globals";
+
+
+
+.edit-box-container, .reply-box-container {
+  @include popupMsgBox;
+}
+
+.msg-box {
+  &.not-visible {
+    display: none;
+  }
+  position: relative;
+  min-width: 350px;
+  height: 200px;
+  max-width: 45%;
+  border-radius: 15px;
+  padding-bottom: 0;
+  padding-top: 15px;
+  background-color: $lightBlue;
+  @include flex(column);
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
+  transition: 0.5s ease;
+  .box-header {
+    @include flex;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .username {
+    color: $darkBlue;
+    font-weight: 600;
+    font-size: 18px;
+    padding-left: 25px;
+    
+  }
+  .time {
+    padding-right: 25px;
+    margin-left: auto;
+    color: $black;
+    font-weight: 600;
+  }
+  .msg-text {
+    color: $black;
+    padding: 0 25px;
+    max-height: 100px;
+    max-width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar-thumb {
+      background-color: $green;
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+  }
+  .bottom-container {
+    @include flex;
+    width: 100%;
+    border-top: 2px solid $lightGray;
+    margin-top: auto;
+
+    & > div {
+      @include flex;
+      height: 40px;
+      flex: 1;
+      transition: 0.2s ease;
+      cursor: pointer;
+      &:hover {
+        &:nth-child(1) {
+          background-color: $green;
+          border-color: $green;
+        }
+        &:nth-child(2) {
+          border-color: $lightGray;
+          background-color: $lightGray;
+        }
+      }
+      &:active {
+        p, img {
+          transform: scale(0.95);
+        }
+      }
+      img {
+        width: 20px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .mark-read {
+    border-right: 2px solid $lightGray;
+    flex: 1;
+  }
+  .edit {
+    margin-top: auto;
+  }
+ 
+  .marked-overlay {
+    position: absolute;
+    top: 0;
+    left: 0; 
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    @include flex;
+    svg {
+      animation: checked 0.3s ease 1;
+      color: $green;
+      background-color: $white;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      box-shadow: 0px 0px 5px;
+      filter: drop-shadow(0px 0px 10px);
+      @keyframes checked {
+        0% {
+          transform: scale(0);
+        }
+        90% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+
+.marked-box {
+  animation: markedBox 0.5s ease 0.5s 1;
+  @keyframes markedBox {
+    25% {
+      transform: scale(1.3);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+}

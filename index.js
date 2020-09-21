@@ -19,10 +19,13 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//All GET requests are to be ignored
-app.get("*", (req, res) => {
-  res.sendStatus(404);
-});
+//For the react app
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "client", "build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //Routes
 app.use("/auth", require("./routes/auth/index"));

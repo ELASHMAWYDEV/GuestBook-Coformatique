@@ -1,0 +1,13 @@
+@import "../../assets/sass/globals";
+
+.home-container {
+  background-color: $black;
+  min-height: 100%;
+  padding: 0 30px;
+  @include media(phone-lg) {
+    padding: 0 15px;
+  }
+  .messages-container {
+    @include messagesContainer;
+  }
+}

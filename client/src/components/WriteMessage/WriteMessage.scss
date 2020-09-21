@@ -1,0 +1,12 @@
+@import "../../assets/sass/globals";
+
+.write-message-container {
+  @include flex;
+  .write-new-btn {
+    @include submitBtn;
+    margin: 80px auto;
+  }
+  .popup-box-container {
+    @include popupMsgBox;
+  }
+}

@@ -1,0 +1,27 @@
+@import "../../assets/sass/globals";
+
+
+.footer {
+  width: 100%;
+  @include flex;
+  padding-top: 60px;
+  background-color: #2d3436;
+  p {
+    margin-bottom: 20px;
+    color: $white;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  span {
+    color: $lightRed;
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  a {
+    margin-left: 10px;
+    @include media(phone-lg) {
+      margin-top: 15px;
+    }
+  }
+}

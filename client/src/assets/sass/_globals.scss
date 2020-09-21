@@ -1,0 +1,196 @@
+@import "colors";
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+
+//All media queries
+@mixin media($breakpoint) {
+  @if $breakpoint == phone-sm {
+      @media only screen and (max-width: 360px) { @content };
+  }
+  @if $breakpoint == phone-lg {
+      @media only screen and (max-width: 480px) { @content };
+  }
+  @if $breakpoint == tablet-sm {
+      @media only screen and (max-width: 768px) { @content };
+  }
+  @if $breakpoint == tablet-lg {
+      @media only screen and (max-width: 1024px) { @content };
+  }
+  @if $breakpoint == desktop-sm {
+      @media only screen and (max-width: 1200px) { @content };
+  }
+  @if $breakpoint == desktop-lg {
+      @media only screen and (max-width: 1920px) { @content };
+  }
+
+}
+
+
+@mixin flex($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin submitBtn {
+  background-color: $green;
+  border: none;
+  color: $white;
+  font-weight: 600;
+  padding: 8px 35px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border-radius: 8px;
+  font-size: 18px;
+  &:hover {
+    background-color: $darkGreen;
+    color: $white;
+  }
+  &:active {
+    transition: none;
+    transform: scale(0.95);
+  }
+}
+
+@mixin roundedBtn($bg: $lightRed, $bgHover: $darkRed) {
+  background-color: $bg;
+  color: $white;
+  border-radius: 20px;
+  padding: 5px 25px;
+  transition: 0.2s ease;
+  text-align: center;
+  border: none;
+  &:hover {
+    background-color: $bgHover;
+  }
+  &:active {
+    transition: none;
+    transform: scale(0.95);
+  }
+}
+
+@mixin lineSeparator {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: $green;
+  border-radius: 5px;
+  margin: 18px auto;
+}
+
+@mixin inputField {
+  border: 3px solid transparent;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: $white;
+  padding: 9px 20px;
+  border-radius: 6px;
+  transition: 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: $black;
+  &:focus {
+    border-color: $green;
+  }
+}
+
+@mixin afterBoxNotice {
+  font-size: 16px;
+  margin-top: 15px;
+  text-align: center;
+  line-height: 22px;
+  a {
+    color: $lightRed;
+    transition: 0.2s ease;
+    &:hover {
+      color: $green;
+    }
+  }
+}
+
+@mixin messagesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  justify-items: center;
+  @include media(desktop-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include media(tablet-sm) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@mixin popupMsgBox {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  @include flex;
+}
+.box {
+  animation: newBox 0.4s ease 1;
+  position: relative;
+  color: $white;
+  background-color: $black;
+  width: 600px;
+  max-width: 95%;
+  padding: 25px;
+  border-radius: 8px;
+  @keyframes newBox {
+    0% {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .close-img {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      transition: none;
+      transform: scale(0.95);
+    }
+  }
+  h3 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .input-container {
+    @include flex;
+    align-items: flex-start;
+    label {
+      margin-right: 18px;
+    }
+    textarea {
+      background-color: $lightBlue;
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 14px;
+      flex: 1;
+      min-height: 150px;
+    }
+  }
+  .save-btn {
+    @include submitBtn;
+    padding: 5px 55px;
+    float: right;
+    margin-top: 20px;
+  }
+}
